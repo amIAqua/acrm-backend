@@ -15,5 +15,5 @@ export interface Vehicle {
 }
 
 export interface Issues {
-  description: string
+  description?: string
 }

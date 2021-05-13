@@ -1,34 +1,54 @@
-import { Injectable } from '@nestjs/common'
-import { InjectModel } from '@nestjs/mongoose'
-import { Model } from 'mongoose'
+import { HttpException, HttpStatus, Injectable, Param } from '@nestjs/common'
+import { InjectModel } from '@nestjs/sequelize'
 import { CreateApplicationDto } from './dto/create-application.dto'
-import {
-  Application,
-  ApplicationDocument,
-} from './models/application/application.model'
+import { Application } from './models/application/application.model'
 
 @Injectable()
 export class ApplicationsService {
   constructor(
-    @InjectModel(Application.name)
-    private applicationRepozitory: Model<ApplicationDocument>,
+    @InjectModel(Application)
+    private applicationRepozitory: typeof Application,
   ) {}
 
   async createNewApplication(application: CreateApplicationDto) {
     const serializedApplication = this.serializeApplicationObject(application)
 
-    const newApplication = new this.applicationRepozitory(serializedApplication)
-    await newApplication.save()
+    try {
+      const newApplication = await this.applicationRepozitory.create(
+        serializedApplication,
+      )
+
+      return newApplication
+    } catch (error) {
+      throw new HttpException(
+        'Cannot create an application. Server error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      )
+    }
   }
 
   async getAllApplications() {
-    const allApplications = await this.applicationRepozitory.find()
+    try {
+      const allApplications = await this.applicationRepozitory.findAll()
 
-    return allApplications
+      return allApplications
+    } catch (error) {
+      throw new HttpException(
+        'Cannot load applications. Server error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      )
+    }
   }
 
-  async getApplicationById(_id: string) {
-    const application = await this.applicationRepozitory.findById({ _id })
+  async getApplicationByPk(pk: string) {
+    const application = await this.applicationRepozitory.findByPk(pk)
+
+    if (!application) {
+      throw new HttpException(
+        'Cannot load an application. Server error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      )
+    }
 
     return application
   }
@@ -52,7 +72,6 @@ export class ApplicationsService {
       issues: {
         description: application.description,
       },
-      creationDate: new Date().toLocaleDateString(),
     }
   }
 }

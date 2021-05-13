@@ -16,8 +16,8 @@ export class ApplicationsController {
     return this.applicationsService.getAllApplications()
   }
 
-  @Get('/:_id')
-  getById(@Param() params: { _id: string }) {
-    return this.applicationsService.getApplicationById(params._id)
+  @Get('/:pk')
+  getById(@Param() params: { pk: string }) {
+    return this.applicationsService.getApplicationByPk(params.pk)
   }
 }
