@@ -1,5 +1,7 @@
-import { HttpException, HttpStatus, Injectable, Param } from '@nestjs/common'
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/sequelize'
+import { ClientsService } from 'src/clients/clients.service'
+import { Client } from 'src/clients/models/client/client.model'
 import { CreateApplicationDto } from './dto/create-application.dto'
 import { Application } from './models/application/application.model'
 
@@ -8,17 +10,28 @@ export class ApplicationsService {
   constructor(
     @InjectModel(Application)
     private applicationRepozitory: typeof Application,
+    private clientsService: ClientsService,
   ) {}
 
   async createNewApplication(application: CreateApplicationDto) {
     const serializedApplication = this.serializeApplicationObject(application)
 
     try {
+      const newClient = await this.clientsService.createNewClient({
+        name: application.name,
+        surname: application.surname,
+        phoneNumber: application.phoneNumber,
+        email: application.email,
+      })
+
       const newApplication = await this.applicationRepozitory.create(
         serializedApplication,
       )
 
-      return newApplication
+      await newClient.$set('applications', [newApplication.id])
+      newClient.applications = [newApplication]
+
+      return this.clientsService.getClientByPk(newClient.id.toString())
     } catch (error) {
       throw new HttpException(
         'Cannot create an application. Server error',

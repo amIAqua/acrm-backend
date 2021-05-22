@@ -1,9 +1,17 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript'
-import { Client, Issues, Vehicle } from './application.types'
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  Table,
+} from 'sequelize-typescript'
+import { IClient, Issues, IVehicle } from './application.types'
+import { Client } from '../../../clients/models/client/client.model'
 
 interface ApplicationCreationAttrs {
-  client: Client
-  vehicle: Vehicle
+  client: IClient
+  vehicle: IVehicle
   issues: Issues
 }
 
@@ -17,11 +25,15 @@ export class Application extends Model<Application, ApplicationCreationAttrs> {
   })
   id: number
 
-  @Column({ type: DataType.JSON, allowNull: false })
+  @BelongsTo(() => Client)
   client: Client
 
+  @ForeignKey(() => Client)
+  @Column({ type: DataType.INTEGER })
+  clientId: number
+
   @Column({ type: DataType.JSON, allowNull: false })
-  vehicle: Vehicle
+  vehicle: IVehicle
 
   @Column({ type: DataType.JSON, allowNull: false })
   issues: Issues

@@ -4,6 +4,8 @@ import { MongooseModule } from '@nestjs/mongoose'
 import { SequelizeModule } from '@nestjs/sequelize'
 import { ApplicationsModule } from 'src/applications/applications.module'
 import { Application } from 'src/applications/models/application/application.model'
+import { ClientsModule } from 'src/clients/clients.module'
+import { Client } from 'src/clients/models/client/client.model'
 
 @Module({
   imports: [
@@ -16,7 +18,7 @@ import { Application } from 'src/applications/models/application/application.mod
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
-      models: [Application],
+      models: [Application, Client],
       autoLoadModels: true,
     }),
   ],
