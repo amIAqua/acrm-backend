@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { MongooseModule } from '@nestjs/mongoose'
 import { SequelizeModule } from '@nestjs/sequelize'
+import { ApplicationCreationModule } from 'src/application-creation/application-creation.module'
 import { ApplicationsModule } from 'src/applications/applications.module'
 import { Application } from 'src/applications/models/application/application.model'
-import { ClientsModule } from 'src/clients/clients.module'
 import { Client } from 'src/clients/models/client/client.model'
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     ApplicationsModule,
+    ApplicationCreationModule,
     SequelizeModule.forRoot({
       dialect: 'postgres',
       host: process.env.POSTGRES_HOST,

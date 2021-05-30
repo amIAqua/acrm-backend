@@ -7,8 +7,9 @@ import { ApplicationsService } from './applications.service'
 import { Application } from './models/application/application.model'
 
 @Module({
-  imports: [SequelizeModule.forFeature([Application, Client]), ClientsModule],
+  imports: [SequelizeModule.forFeature([Application, Client])],
   controllers: [ApplicationsController],
   providers: [ApplicationsService],
+  exports: [ApplicationsService],
 })
 export class ApplicationsModule {}

@@ -6,11 +6,12 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript'
-import { IClient, Issues, IVehicle } from './application.types'
+import { Issues, IVehicle } from './application.types'
 import { Client } from '../../../clients/models/client/client.model'
+import { ClientType } from 'src/clients/models/client/client.types'
 
 interface ApplicationCreationAttrs {
-  client: IClient
+  client: ClientType
   vehicle: IVehicle
   issues: Issues
 }

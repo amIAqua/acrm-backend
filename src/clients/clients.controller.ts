@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common'
+import { Body, Controller, Get, Param } from '@nestjs/common'
 import { ClientsService } from './clients.service'
 
 @Controller('clients')
@@ -14,4 +14,15 @@ export class ClientsController {
   getClientApplications(@Param() params: { clientId: string }) {
     return this.clientService.getClientApplications(params.clientId)
   }
+
+  // @Post(':clientId/applications/new')
+  // addApplication(
+  //   @Param() params: { clientId: string },
+  //   @Body() application: NewApplicationDto,
+  // ) {
+  //   return this.applicationsService.addNewApplication(
+  //     params.clientId,
+  //     application,
+  //   )
+  // }
 }
