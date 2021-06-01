@@ -1,13 +1,24 @@
-import { Body, Controller, Post } from '@nestjs/common'
+import { Body, Controller, Param, Post } from '@nestjs/common'
 import { ApplicationCreationService } from './application-creation.service'
 import { CreateApplicationDto } from './dto/create-application.dto'
 
 @Controller('application-creation')
 export class ApplicationCreationController {
-  constructor(private ApplicationCreationService: ApplicationCreationService) {}
+  constructor(private applicationCreationService: ApplicationCreationService) {}
 
   @Post('/create-new')
-  addNew(@Body() application: CreateApplicationDto) {
-    return this.ApplicationCreationService.createNewApplication(application)
+  createApplication(@Body() application: CreateApplicationDto) {
+    return this.applicationCreationService.createNewApplication(application)
+  }
+
+  @Post(':clientId/add-new')
+  addNewApplication(
+    @Param() params: { clientId: string },
+    @Body() application: Omit<CreateApplicationDto, 'client'>,
+  ) {
+    return this.applicationCreationService.addNewApplication(
+      params.clientId,
+      application,
+    )
   }
 }

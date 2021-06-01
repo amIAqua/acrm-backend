@@ -1,4 +1,4 @@
-export interface IVehicle {
+export type VehicleType = {
   brand: string
   model: string
   yearOfIssue: string
@@ -7,6 +7,6 @@ export interface IVehicle {
   VIN: string
 }
 
-export interface Issues {
+export type IssuesType = {
   description?: string
 }

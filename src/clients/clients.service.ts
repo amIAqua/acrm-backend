@@ -2,9 +2,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/sequelize'
 import { Op } from 'sequelize'
 import { Application } from 'src/applications/models/application/application.model'
-import { NewApplicationDto } from './dto/new-application-dto'
-import { Client } from './models/client/client.model'
 import { ClientType } from './models/client/client.types'
+import { Client } from './models/client/client.model'
 
 @Injectable()
 export class ClientsService {
@@ -15,6 +14,10 @@ export class ClientsService {
 
   async createNewClient(client: ClientType) {
     return this.clientRepozitory.create(client)
+  }
+
+  async getClientByPk(clientId: string) {
+    return this.clientRepozitory.findByPk(clientId)
   }
 
   async getClientsBySearchQuery(query: string) {

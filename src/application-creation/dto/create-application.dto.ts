@@ -1,18 +1,16 @@
+import {
+  IssuesType,
+  VehicleType,
+} from 'src/applications/models/application/application.types'
+import { ClientType } from 'src/clients/models/client/client.types'
+
+export type ApplicationType = {
+  readonly vehicle: VehicleType
+  readonly issues: IssuesType
+}
+
 export class CreateApplicationDto {
-  // client
-  readonly name: string
-  readonly surname?: string
-  readonly phoneNumber: string
-  readonly email?: string
-
-  // vehicle
-  readonly brand: string
-  readonly model: string
-  readonly yearOfIssue: string
-  readonly registrationNumber: string
-  readonly engineSpecification: string
-  readonly VIN: string
-
-  // Issues
-  readonly description?: string
+  readonly client: ClientType
+  readonly vehicle: VehicleType
+  readonly issues: IssuesType
 }

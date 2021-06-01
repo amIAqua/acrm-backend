@@ -6,14 +6,14 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript'
-import { Issues, IVehicle } from './application.types'
+import { IssuesType, VehicleType } from './application.types'
 import { Client } from '../../../clients/models/client/client.model'
 import { ClientType } from 'src/clients/models/client/client.types'
 
 interface ApplicationCreationAttrs {
   client: ClientType
-  vehicle: IVehicle
-  issues: Issues
+  vehicle: VehicleType
+  issues: IssuesType
 }
 
 @Table({ tableName: 'applications' })
@@ -34,8 +34,8 @@ export class Application extends Model<Application, ApplicationCreationAttrs> {
   clientId: number
 
   @Column({ type: DataType.JSON, allowNull: false })
-  vehicle: IVehicle
+  vehicle: VehicleType
 
   @Column({ type: DataType.JSON, allowNull: false })
-  issues: Issues
+  issues: IssuesType
 }

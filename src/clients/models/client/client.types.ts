@@ -1,6 +1,6 @@
 export type ClientType = {
-  name: string
-  surname?: string
-  phoneNumber: string
-  email?: string
+  readonly name: string
+  readonly surname: string
+  readonly phoneNumber: string
+  readonly email?: string
 }
