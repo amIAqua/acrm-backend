@@ -10,3 +10,9 @@ export type VehicleType = {
 export type IssuesType = {
   description?: string
 }
+
+export enum Status {
+  CREATED = 'CREATED',
+  IN_PROGRESS = 'IN_PROGRESS',
+  CLOSED = 'CLOSED',
+}

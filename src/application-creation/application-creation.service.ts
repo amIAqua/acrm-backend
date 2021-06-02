@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { ApplicationsService } from 'src/applications/applications.service'
+import { Status } from 'src/applications/models/application/application.types'
 import { ClientsService } from 'src/clients/clients.service'
 import { CreateApplicationDto } from './dto/create-application.dto'
 
@@ -17,7 +18,10 @@ export class ApplicationCreationService {
       )
 
       const newApplication =
-        await this.applicationsService.createNewApplication(application)
+        await this.applicationsService.createNewApplication(
+          application,
+          Status.CREATED,
+        )
 
       await newClient.$set('applications', [newApplication.id])
       newClient.applications = [newApplication]
@@ -37,12 +41,15 @@ export class ApplicationCreationService {
   ) {
     const client = await this.clientsService.getClientByPk(clientId)
 
-    const newApplication = await this.applicationsService.createNewApplication({
-      client,
-      clientId,
-      vehicle: application.vehicle,
-      issues: application.issues,
-    })
+    const newApplication = await this.applicationsService.createNewApplication(
+      {
+        client,
+        clientId,
+        vehicle: application.vehicle,
+        issues: application.issues,
+      },
+      Status.CREATED,
+    )
 
     client.applications = [newApplication]
 
