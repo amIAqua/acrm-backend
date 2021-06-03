@@ -4,6 +4,7 @@ import { Op } from 'sequelize'
 import { Application } from 'src/applications/models/application/application.model'
 import { ClientType } from './models/client/client.types'
 import { Client } from './models/client/client.model'
+import { queryToModelFormat } from './utils/string-queries'
 
 @Injectable()
 export class ClientsService {
@@ -24,8 +25,8 @@ export class ClientsService {
     const candidates = await this.clientRepozitory.findAll({
       where: {
         [Op.or]: [
-          { name: query },
-          { surname: query },
+          { name: queryToModelFormat(query) },
+          { surname: queryToModelFormat(query) },
           { phoneNumber: query },
           { email: query },
         ],
