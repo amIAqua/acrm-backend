@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/sequelize'
 import { CreateApplicationDto } from 'src/application-creation/dto/create-application.dto'
 import { Application } from './models/application/application.model'
@@ -21,5 +21,9 @@ export class ApplicationsService {
       status: applicationStatus,
       ...application,
     })
+  }
+
+  async findByPk(pk: string) {
+    return this.applicationRepozitory.findByPk(pk)
   }
 }
