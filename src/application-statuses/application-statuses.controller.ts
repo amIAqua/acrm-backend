@@ -8,14 +8,11 @@ export class ApplicationStatusesController {
     private applicationsStatusesService: ApplicationStatusesService,
   ) {}
 
-  @Put('status')
-  changeStatus(
-    @Param() params: { id: string },
-    @Headers('Status') status: Status,
-  ) {
+  @Put('status/:status')
+  changeStatus(@Param() params: { id: string; status: Status }) {
     return this.applicationsStatusesService.changeApplicationStatus(
       params.id,
-      status,
+      params.status,
     )
   }
 }

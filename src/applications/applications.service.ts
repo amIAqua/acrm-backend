@@ -1,6 +1,7 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/sequelize'
 import { CreateApplicationDto } from 'src/application-creation/dto/create-application.dto'
+import { Client } from 'src/clients/models/client/client.model'
 import { Application } from './models/application/application.model'
 import { Status } from './models/application/application.types'
 
@@ -25,5 +26,14 @@ export class ApplicationsService {
 
   async findByPk(pk: string) {
     return this.applicationRepozitory.findByPk(pk)
+  }
+
+  async getAllInProgress() {
+    return this.applicationRepozitory.findAll({
+      include: [Client],
+      where: {
+        status: Status.IN_PROGRESS,
+      },
+    })
   }
 }
