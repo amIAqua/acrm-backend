@@ -17,7 +17,7 @@ export class ClientsService {
     return this.clientRepozitory.create(client)
   }
 
-  async getClientByPk(clientId: string) {
+  async getClientByPk(clientId: number) {
     return this.clientRepozitory.findByPk(clientId)
   }
 
@@ -36,7 +36,7 @@ export class ClientsService {
     return candidates
   }
 
-  async getClientApplications(clientId: string) {
+  async getClientApplications(clientId: number) {
     const client = await this.clientRepozitory.findByPk(clientId, {
       include: [Application],
     })
