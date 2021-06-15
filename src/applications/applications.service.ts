@@ -28,6 +28,10 @@ export class ApplicationsService {
     return this.applicationRepozitory.findByPk(pk)
   }
 
+  async findByPkWithClient(pk: string) {
+    return this.applicationRepozitory.findByPk(pk, { include: [Client] })
+  }
+
   async getAllInProgress() {
     return this.applicationRepozitory.findAll({
       include: [Client],
