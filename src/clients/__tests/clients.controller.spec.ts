@@ -41,7 +41,7 @@ describe('ClientsController', () => {
     },
   ]
 
-  const mockedUserService = {
+  const mockedUsersService = {
     getClientsBySearchQuery: jest.fn((query) => returnedClients),
     getClientApplications: jest.fn((clientId) => clientWithApplications),
   }
@@ -52,7 +52,7 @@ describe('ClientsController', () => {
       providers: [ClientsService],
     })
       .overrideProvider(ClientsService)
-      .useValue(mockedUserService)
+      .useValue(mockedUsersService)
       .compile()
 
     clientsController = moduleRef.get<ClientsController>(ClientsController)

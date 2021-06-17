@@ -24,11 +24,11 @@ export class ApplicationsService {
     })
   }
 
-  async findByPk(pk: string) {
+  async findByPk(pk: number) {
     return this.applicationRepozitory.findByPk(pk)
   }
 
-  async findByPkWithClient(pk: string) {
+  async findByPkWithClient(pk: number) {
     return this.applicationRepozitory.findByPk(pk, { include: [Client] })
   }
 
