@@ -50,6 +50,51 @@ describe('ApplicationsService', () => {
     status: Status.CREATED,
   }
 
+  const returnedApplicationsList = [
+    {
+      id: 1,
+      client: {
+        name: 'Marius',
+        surname: 'Toy',
+        phoneNumber: '+123321',
+        email: '',
+      },
+      vehicle: {
+        brand: 'Toyota',
+        model: 'Corolla',
+        yearOfIssue: '2012',
+        registrationNumber: '1221-RN-3',
+        engineSpecification: '2.0',
+        VIN: 'VIN',
+      },
+      issues: {
+        description: 'description',
+      },
+      status: Status.CREATED,
+    },
+    {
+      id: 1,
+      client: {
+        name: 'Marius',
+        surname: 'Toy',
+        phoneNumber: '+123321',
+        email: '',
+      },
+      vehicle: {
+        brand: 'Toyota',
+        model: 'Corolla',
+        yearOfIssue: '2012',
+        registrationNumber: '1221-RN-3',
+        engineSpecification: '2.0',
+        VIN: 'VIN',
+      },
+      issues: {
+        description: 'description',
+      },
+      status: Status.CREATED,
+    },
+  ]
+
   const mockedApplicationsRepozitory = {
     create: jest.fn().mockImplementation(() =>
       Promise.resolve({
@@ -62,6 +107,9 @@ describe('ApplicationsService', () => {
       .mockImplementation(() =>
         Promise.resolve({ ...returnedApplication, id: 1 }),
       ),
+    findAll: jest
+      .fn()
+      .mockImplementation(() => Promise.resolve(returnedApplicationsList)),
   }
 
   beforeEach(async () => {
@@ -111,6 +159,18 @@ describe('ApplicationsService', () => {
       const application = await applicationsService.findByPkWithClient(1)
 
       expect(application.id).toBe(1)
+    })
+  })
+
+  describe('getAllInProgress', () => {
+    it('should be defined', () => {
+      expect(applicationsService.getAllInProgress).toBeDefined()
+    })
+
+    it('returns applications list with status - IN_PROGRESS', async () => {
+      expect(await applicationsService.getAllInProgress()).toEqual(
+        returnedApplicationsList,
+      )
     })
   })
 })
