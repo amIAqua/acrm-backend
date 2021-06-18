@@ -5,7 +5,7 @@ import { ApplicationsService } from 'src/applications/applications.service'
 export class ApplicationEditingService {
   constructor(private applicationsService: ApplicationsService) {}
 
-  async getOneForEditing(id: string) {
+  async getOneForEditing(id: number) {
     const application = await this.applicationsService.findByPkWithClient(id)
 
     return application

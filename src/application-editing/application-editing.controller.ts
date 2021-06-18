@@ -7,6 +7,6 @@ export class ApplicationEditingController {
 
   @Get()
   getOne(@Param() params: { id: string }) {
-    return this.applicationEditingService.getOneForEditing(params.id)
+    return this.applicationEditingService.getOneForEditing(+params.id)
   }
 }

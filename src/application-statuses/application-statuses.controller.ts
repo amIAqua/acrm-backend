@@ -11,7 +11,7 @@ export class ApplicationStatusesController {
   @Put('status/:status')
   changeStatus(@Param() params: { id: string; status: Status }) {
     return this.applicationsStatusesService.changeApplicationStatus(
-      params.id,
+      +params.id,
       params.status,
     )
   }

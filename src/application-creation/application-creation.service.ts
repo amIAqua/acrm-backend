@@ -39,7 +39,7 @@ export class ApplicationCreationService {
     clientId: string,
     application: Omit<CreateApplicationDto, 'client'>,
   ) {
-    const client = await this.clientsService.getClientByPk(clientId)
+    const client = await this.clientsService.getClientByPk(+clientId)
 
     const newApplication = await this.applicationsService.createNewApplication(
       {

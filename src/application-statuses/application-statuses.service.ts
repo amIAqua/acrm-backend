@@ -6,7 +6,7 @@ import { Status } from 'src/applications/models/application/application.types'
 export class ApplicationStatusesService {
   constructor(private applicationsService: ApplicationsService) {}
 
-  async changeApplicationStatus(pk: string, status: Status) {
+  async changeApplicationStatus(pk: number, status: Status) {
     const application = await this.applicationsService.findByPk(pk)
 
     if (!application) {
