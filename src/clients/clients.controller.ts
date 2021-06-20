@@ -5,14 +5,14 @@ import { ClientsService } from './clients.service'
 export class ClientsController {
   constructor(private clientService: ClientsService) {}
 
-  @Get('/:id')
-  getClient(@Param() params: { id: string }) {
-    return this.clientService.getClientByPk(+params.id)
-  }
-
   @Get('/:query')
   getClientsByQuery(@Param() params: { query: string }) {
     return this.clientService.getClientsBySearchQuery(params.query)
+  }
+
+  @Get('get/:id')
+  getClient(@Param() params: { id: string }) {
+    return this.clientService.getClientByPk(+params.id)
   }
 
   @Get('/:clientId/applications')
