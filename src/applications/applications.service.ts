@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { HttpCode, HttpStatus, Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/sequelize'
 import { CreateApplicationDto } from 'src/application-creation/dto/create-application.dto'
 import { Client } from 'src/clients/models/client/client.model'
@@ -39,5 +39,15 @@ export class ApplicationsService {
         status: Status.IN_PROGRESS,
       },
     })
+  }
+
+  async deleteOne(id: number) {
+    this.applicationRepozitory.destroy({
+      where: {
+        id,
+      },
+    })
+
+    return HttpStatus.OK
   }
 }
