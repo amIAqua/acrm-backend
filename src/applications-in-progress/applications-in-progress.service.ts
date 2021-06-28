@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common'
+import { HttpStatus, Injectable } from '@nestjs/common'
 import { ApplicationsService } from 'src/applications/applications.service'
+import { response } from 'src/features/response'
 
 @Injectable()
 export class ApplicationsInProgressService {
@@ -9,6 +10,6 @@ export class ApplicationsInProgressService {
     const applicationsInProgress =
       await this.applicationsService.getAllInProgress()
 
-    return applicationsInProgress
+    return response(HttpStatus.OK, applicationsInProgress)
   }
 }

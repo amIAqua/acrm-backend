@@ -1,10 +1,11 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
+import { HttpStatus, Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/sequelize'
 import { Op } from 'sequelize'
 import { Application } from 'src/applications/models/application/application.model'
 import { ClientType } from './models/client/client.types'
 import { Client } from './models/client/client.model'
 import { queryToModelFormat } from './utils/string-queries'
+import { error, response } from 'src/features/response'
 
 @Injectable()
 export class ClientsService {
@@ -33,7 +34,11 @@ export class ClientsService {
       },
     })
 
-    return candidates
+    if (!candidates.length) {
+      return error('Cannot find clients with given query', HttpStatus.NOT_FOUND)
+    }
+
+    return response(HttpStatus.OK, candidates)
   }
 
   async getClientApplications(clientId: number) {
@@ -42,12 +47,12 @@ export class ClientsService {
     })
 
     if (!client) {
-      throw new HttpException(
-        'Cannot find client with given identifier',
+      return error(
+        'Cannot find client applications with given identifier',
         HttpStatus.NOT_FOUND,
       )
     }
 
-    return client.applications
+    return response(HttpStatus.OK, client.applications)
   }
 }

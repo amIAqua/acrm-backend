@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { ApplicationsService } from 'src/applications/applications.service'
 import { Status } from 'src/applications/models/application/application.types'
+import { response } from 'src/features/response'
 
 @Injectable()
 export class ApplicationStatusesService {
@@ -18,5 +19,7 @@ export class ApplicationStatusesService {
 
     application.status = status
     await application.save()
+
+    return response(HttpStatus.OK, null)
   }
 }

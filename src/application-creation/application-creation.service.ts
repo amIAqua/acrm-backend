@@ -1,7 +1,8 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
+import { HttpStatus, Injectable } from '@nestjs/common'
 import { ApplicationsService } from 'src/applications/applications.service'
 import { Status } from 'src/applications/models/application/application.types'
 import { ClientsService } from 'src/clients/clients.service'
+import { response, error } from 'src/features/response'
 import { CreateApplicationDto } from './dto/create-application.dto'
 
 @Injectable()
@@ -26,9 +27,9 @@ export class ApplicationCreationService {
       await newClient.$set('applications', [newApplication.id])
       newClient.applications = [newApplication]
 
-      return HttpStatus.OK
-    } catch (error) {
-      throw new HttpException(
+      return response(HttpStatus.OK, null)
+    } catch (e) {
+      error(
         'Cannot create an application. Server error',
         HttpStatus.INTERNAL_SERVER_ERROR,
       )
@@ -53,6 +54,6 @@ export class ApplicationCreationService {
 
     client.applications = [newApplication]
 
-    return HttpStatus.OK
+    return response(HttpStatus.OK, null)
   }
 }

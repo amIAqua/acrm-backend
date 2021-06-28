@@ -1,7 +1,8 @@
-import { HttpCode, HttpStatus, Injectable } from '@nestjs/common'
+import { HttpStatus, Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/sequelize'
 import { CreateApplicationDto } from 'src/application-creation/dto/create-application.dto'
 import { Client } from 'src/clients/models/client/client.model'
+import { error, response } from 'src/features/response'
 import { Application } from './models/application/application.model'
 import { Status } from './models/application/application.types'
 
@@ -29,16 +30,29 @@ export class ApplicationsService {
   }
 
   async findByPkWithClient(pk: number) {
-    return this.applicationRepozitory.findByPk(pk, { include: [Client] })
+    const application = await this.applicationRepozitory.findByPk(pk, {
+      include: [Client],
+    })
+
+    if (!application) {
+      return error(
+        'Cannot find application with given identifier',
+        HttpStatus.NOT_FOUND,
+      )
+    }
+
+    return response(HttpStatus.OK, application)
   }
 
   async getAllInProgress() {
-    return this.applicationRepozitory.findAll({
+    const applicationsInProgress = await this.applicationRepozitory.findAll({
       include: [Client],
       where: {
         status: Status.IN_PROGRESS,
       },
     })
+
+    return response(HttpStatus.OK, applicationsInProgress)
   }
 
   async deleteOne(id: number) {
@@ -48,6 +62,6 @@ export class ApplicationsService {
       },
     })
 
-    return HttpStatus.OK
+    return response(HttpStatus.OK, null)
   }
 }
