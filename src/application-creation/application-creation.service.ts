@@ -48,6 +48,7 @@ export class ApplicationCreationService {
         clientId,
         vehicle: application.vehicle,
         issues: application.issues,
+        closed: application.closed,
       },
       Status.CREATED,
     )

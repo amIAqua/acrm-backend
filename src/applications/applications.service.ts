@@ -19,6 +19,8 @@ export class ApplicationsService {
     application: ApplicationDtoWithClientId,
     applicationStatus: Status,
   ) {
+    console.log(application.closed)
+
     return this.applicationRepozitory.create({
       status: applicationStatus,
       ...application,
@@ -41,7 +43,7 @@ export class ApplicationsService {
       )
     }
 
-    return response(HttpStatus.OK, application)
+    return application
   }
 
   async getAllInProgress() {
@@ -52,7 +54,7 @@ export class ApplicationsService {
       },
     })
 
-    return response(HttpStatus.OK, applicationsInProgress)
+    return applicationsInProgress
   }
 
   async deleteOne(id: number) {

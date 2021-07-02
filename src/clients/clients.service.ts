@@ -6,6 +6,7 @@ import { ClientType } from './models/client/client.types'
 import { Client } from './models/client/client.model'
 import { queryToModelFormat } from './utils/string-queries'
 import { error, response } from 'src/features/response'
+import { Status } from 'src/applications/models/application/application.types'
 
 @Injectable()
 export class ClientsService {

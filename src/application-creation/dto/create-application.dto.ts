@@ -13,4 +13,5 @@ export class CreateApplicationDto {
   readonly client: ClientType
   readonly vehicle: VehicleType
   readonly issues: IssuesType
+  readonly closed: boolean
 }

@@ -42,4 +42,13 @@ export class Application extends Model<Application, ApplicationCreationAttrs> {
 
   @Column({ type: DataType.STRING, allowNull: false })
   status: Status
+
+  @Column({ type: DataType.STRING, allowNull: true })
+  startedAt: string
+
+  @Column({ type: DataType.STRING, allowNull: true })
+  closedAt: string
+
+  @Column({ type: DataType.BOOLEAN, allowNull: false })
+  closed: boolean
 }

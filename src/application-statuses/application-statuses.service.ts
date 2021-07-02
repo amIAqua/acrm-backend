@@ -18,6 +18,16 @@ export class ApplicationStatusesService {
     }
 
     application.status = status
+
+    if (status === Status.IN_PROGRESS) {
+      application.startedAt = new Date().toLocaleDateString()
+    }
+
+    if (status === Status.CLOSED) {
+      application.closedAt = new Date().toLocaleDateString()
+      application.closed = true
+    }
+
     await application.save()
 
     return response(HttpStatus.OK, null)
