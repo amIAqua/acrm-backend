@@ -19,8 +19,6 @@ export class ApplicationsService {
     application: ApplicationDtoWithClientId,
     applicationStatus: Status,
   ) {
-    console.log(application.closed)
-
     return this.applicationRepozitory.create({
       status: applicationStatus,
       ...application,

@@ -12,7 +12,7 @@ export class ApplicationCreationService {
     private applicationsService: ApplicationsService,
   ) {}
 
-  async createNewApplication(application: CreateApplicationDto) {
+  async createNewApplicationFromScratch(application: CreateApplicationDto) {
     try {
       const newClient = await this.clientsService.createNewClient(
         application.client,

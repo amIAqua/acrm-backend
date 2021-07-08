@@ -1,4 +1,4 @@
-import { Controller, Headers, Param, Put } from '@nestjs/common'
+import { Controller, Param, Put } from '@nestjs/common'
 import { Status } from 'src/applications/models/application/application.types'
 import { ApplicationStatusesService } from './application-statuses.service'
 
@@ -9,7 +9,7 @@ export class ApplicationStatusesController {
   ) {}
 
   @Put('status/:status')
-  changeStatus(@Param() params: { id: string; status: Status }) {
+  to_progress(@Param() params: { id: string; status: Status }) {
     return this.applicationsStatusesService.changeApplicationStatus(
       +params.id,
       params.status,

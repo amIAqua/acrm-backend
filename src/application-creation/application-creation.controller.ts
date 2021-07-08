@@ -8,7 +8,9 @@ export class ApplicationCreationController {
 
   @Post('/create-new')
   createApplication(@Body() application: CreateApplicationDto) {
-    return this.applicationCreationService.createNewApplication(application)
+    return this.applicationCreationService.createNewApplicationFromScratch(
+      application,
+    )
   }
 
   @Post(':clientId/add-new')
