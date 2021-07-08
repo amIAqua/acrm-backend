@@ -7,7 +7,7 @@ export class ApplicationsController {
 
   @Get('/:id')
   async getOne(@Param() params: { id: string }) {
-    return this.applicationsService.findByPk(+params.id)
+    return this.applicationsService.findByPkWithClient(+params.id)
   }
 
   @Delete('/:id/delete')
